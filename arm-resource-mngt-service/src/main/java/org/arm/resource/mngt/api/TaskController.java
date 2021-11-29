@@ -4,15 +4,18 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.http.HttpHeaders;
 import org.arm.resource.mngt.entity.Priority;
 import org.arm.resource.mngt.entity.Status;
 import org.arm.resource.mngt.entity.Task;
 import org.arm.resource.mngt.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 @RestController
 public class TaskController {
@@ -20,8 +23,11 @@ public class TaskController {
 	private ITaskService taskService;
 	
 	@GetMapping("/task")
-	public List<Task> allT(){
-		return taskService.getAllTask();
+	public ResponseEntity<List<Task>> allT(){
+		HttpHeaders headers=new HttpHeaders();
+		headers.add("desc", "Get All Tasks");
+		List<Task> taskList= taskService.getAllTask();
+		return ResponseEntity.ok().headers(headers).body(taskList);
 	}
 	
 	@GetMapping("/task/create")

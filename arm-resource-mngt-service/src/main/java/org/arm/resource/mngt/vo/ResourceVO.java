@@ -1,56 +1,60 @@
-package org.arm.resource.mngt.entity;
+package org.arm.resource.mngt.vo;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.arm.resource.mngt.entity.Availability;
+import org.arm.resource.mngt.entity.Leaves;
+import org.arm.resource.mngt.entity.Task;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class,
-  property = "resourceId")
-public class Resource {
+		  generator = ObjectIdGenerators.PropertyGenerator.class,
+		  property = "resourceId")
+public class ResourceVO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8386616996157565633L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int resourceId;
 	private String resourceName;
 	private String resourceType;
-	private Timestamp createDate;
-	private Timestamp updateDate;
-	private int isDeleted;
-	private String resourceImage;
 	private String region;
-	@OneToMany(mappedBy="resource")
-	//@JsonBackReference
+	@OneToMany(mappedBy = "resource")
+//@JsonBackReference
 	private List<Task> taskList;
 
 	@OneToOne
-	@JoinColumn(name="availableId")
+	@JoinColumn(name = "availableId")
 	private Availability availability;
 
 	@OneToOne
-	@JoinColumn(name="leave_id")
+	@JoinColumn(name = "leave_id")
 	private Leaves leave;
 
-public int getResourceId() {
+	public int getResourceId() {
 		return resourceId;
 	}
 
@@ -72,38 +76,6 @@ public int getResourceId() {
 
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
-	}
-
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-
-	public Timestamp getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Timestamp updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public int getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(int isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public String getResourceImage() {
-		return resourceImage;
-	}
-
-	public void setResourceImage(String resourceImage) {
-		this.resourceImage = resourceImage;
 	}
 
 	public String getRegion() {
@@ -137,8 +109,6 @@ public int getResourceId() {
 	public void setLeave(Leaves leave) {
 		this.leave = leave;
 	}
-
-
 
 
 }

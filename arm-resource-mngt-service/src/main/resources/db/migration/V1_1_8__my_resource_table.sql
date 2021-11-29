@@ -1,0 +1,1 @@
+ALTER TABLE resource ADD (resource_image varchar(100), region varchar(30));

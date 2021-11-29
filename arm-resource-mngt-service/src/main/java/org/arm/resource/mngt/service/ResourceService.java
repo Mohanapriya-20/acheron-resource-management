@@ -3,7 +3,7 @@ package org.arm.resource.mngt.service;
 import java.util.List;
 
 import org.arm.resource.mngt.entity.Resource;
-import org.arm.resource.mngt.repository.RepourceRepository;
+import org.arm.resource.mngt.repository.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class ResourceService implements IResourceService{
 	
 	@Autowired
-	private RepourceRepository repourceRepository;
+	private ResourceRepository repourceRepository;
 
 	@Override
 	public void save(Resource resource) {
